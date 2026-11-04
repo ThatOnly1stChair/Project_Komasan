@@ -1,0 +1,12 @@
+<mujoco model="test_scene">
+    <option timestep="0.002"/>
+
+    <include file="robot.xml"/>
+
+    <worldbody>
+        <geom name="floor"
+            type="plane"
+            size="10 10 0.1"/>
+    </worldbody>
+
+</mujoco>
