@@ -259,7 +259,7 @@
     </inertial>
     <!-- Part abduction_joint -->
     <visual>
-      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <origin xyz="0 0 0" rpy="1.5708 -0 0"/>
       <geometry>
         <mesh filename="assets/abduction_joint.stl"/>
       </geometry>
@@ -268,7 +268,7 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <origin xyz="0 0 0" rpy="1.5708 -0 0"/>
       <geometry>
         <mesh filename="assets/abduction_joint.stl"/>
       </geometry>
@@ -315,7 +315,7 @@
     </inertial>
     <!-- Part fourbar_joint -->
     <visual>
-      <origin xyz="0.0757772 -0.04375 -0.013" rpy="1.5708 0 -0"/>
+      <origin xyz="0.0757772 -0.04375 -0.013" rpy="1.5708 0 0"/>
       <geometry>
         <mesh filename="assets/fourbar_joint.stl"/>
       </geometry>
@@ -324,7 +324,7 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="0.0757772 -0.04375 -0.013" rpy="1.5708 0 -0"/>
+      <origin xyz="0.0757772 -0.04375 -0.013" rpy="1.5708 0 0"/>
       <geometry>
         <mesh filename="assets/fourbar_joint.stl"/>
       </geometry>
@@ -363,7 +363,7 @@
     </collision>
     <!-- Part l_shoulder_support -->
     <visual>
-      <origin xyz="0 0 -0" rpy="1.5708 0 -0"/>
+      <origin xyz="0 0 -0" rpy="1.5708 0 0"/>
       <geometry>
         <mesh filename="assets/l_shoulder_support.stl"/>
       </geometry>
@@ -372,14 +372,14 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 -0" rpy="1.5708 0 -0"/>
+      <origin xyz="0 0 -0" rpy="1.5708 0 0"/>
       <geometry>
         <mesh filename="assets/l_shoulder_support.stl"/>
       </geometry>
     </collision>
     <!-- Part l_shoulder_joint -->
     <visual>
-      <origin xyz="0 0 0" rpy="1.5708 0 -0"/>
+      <origin xyz="0 -0 0" rpy="1.5708 0 0"/>
       <geometry>
         <mesh filename="assets/l_shoulder_joint.stl"/>
       </geometry>
@@ -388,7 +388,7 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="1.5708 0 -0"/>
+      <origin xyz="0 -0 0" rpy="1.5708 0 0"/>
       <geometry>
         <mesh filename="assets/l_shoulder_joint.stl"/>
       </geometry>
@@ -403,7 +403,7 @@
     </inertial>
     <!-- Part ball_foot -->
     <visual>
-      <origin xyz="0 -0 0.0133" rpy="1.5708 -0 0"/>
+      <origin xyz="0 -0 0.0133" rpy="1.5708 0 -0"/>
       <geometry>
         <mesh filename="assets/ball_foot.stl"/>
       </geometry>
@@ -412,14 +412,14 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="0 -0 0.0133" rpy="1.5708 -0 0"/>
+      <origin xyz="0 -0 0.0133" rpy="1.5708 0 -0"/>
       <geometry>
         <mesh filename="assets/ball_foot.stl"/>
       </geometry>
     </collision>
     <!-- Part l_forearm_2 -->
     <visual>
-      <origin xyz="-0 0 -0.005" rpy="-1.5708 0 -0"/>
+      <origin xyz="-0 0 -0.005" rpy="-1.5708 0 0"/>
       <geometry>
         <mesh filename="assets/l_forearm_2.stl"/>
       </geometry>
@@ -428,14 +428,14 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="-0 0 -0.005" rpy="-1.5708 0 -0"/>
+      <origin xyz="-0 0 -0.005" rpy="-1.5708 0 0"/>
       <geometry>
         <mesh filename="assets/l_forearm_2.stl"/>
       </geometry>
     </collision>
     <!-- Part l_forearm_1 -->
     <visual>
-      <origin xyz="0 0 -0.005" rpy="-1.5708 0 -0"/>
+      <origin xyz="-0 0 -0.005" rpy="-1.5708 0 0"/>
       <geometry>
         <mesh filename="assets/l_forearm_1.stl"/>
       </geometry>
@@ -444,7 +444,7 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 -0.005" rpy="-1.5708 0 -0"/>
+      <origin xyz="-0 0 -0.005" rpy="-1.5708 0 0"/>
       <geometry>
         <mesh filename="assets/l_forearm_1.stl"/>
       </geometry>
@@ -452,27 +452,27 @@
   </link>
   <!-- Joint from fl_shoulder to fl_forearm -->
   <joint name="FL_j3" type="revolute">
-    <origin xyz="0.17 0 -0.006" rpy="3.14159 -0 -0.76553"/>
+    <origin xyz="0.17 0 -0.006" rpy="-3.14159 -0 -1.8326"/>
     <parent link="fl_shoulder"/>
     <child link="fl_forearm"/>
     <axis xyz="0 0 1"/>
-    <limit effort="10" velocity="10" lower="-0.416464" upper="1.06707"/>
+    <limit effort="10" velocity="10" lower="-1.48353" upper="0"/>
   </joint>
   <!-- Joint from fl_hip to fl_shoulder -->
   <joint name="FL_j2" type="revolute">
-    <origin xyz="-0.0225 -0 -0.0605" rpy="1.5708 1.2561 1.5708"/>
+    <origin xyz="-0.0225 -0 -0.0605" rpy="1.5708 -0.698132 1.5708"/>
     <parent link="fl_hip"/>
     <child link="fl_shoulder"/>
     <axis xyz="0 0 1"/>
-    <limit effort="10" velocity="10" lower="-1.71096" upper="1.95423"/>
+    <limit effort="10" velocity="10" lower="-3.66519" upper="0"/>
   </joint>
   <!-- Joint from chassis to fl_hip -->
   <joint name="FL_j1" type="revolute">
-    <origin xyz="0.143642 -0.016 0.04275" rpy="-1.5708 0.0459061 3.14159"/>
+    <origin xyz="0.143642 -0.016 0.04275" rpy="-1.5708 0.00659912 3.14159"/>
     <parent link="chassis"/>
     <child link="fl_hip"/>
     <axis xyz="0 0 1"/>
-    <limit effort="10" velocity="10" lower="-0.569505" upper="0.477693"/>
+    <limit effort="10" velocity="10" lower="-0.530198" upper="0.517"/>
   </joint>
   <!-- Link bl_hip -->
   <link name="bl_hip">
@@ -723,7 +723,7 @@
     </collision>
     <!-- Part abduction_joint_3 -->
     <visual>
-      <origin xyz="0 -0 0" rpy="-1.5708 0 0"/>
+      <origin xyz="0 0 0" rpy="-1.5708 0 -0"/>
       <geometry>
         <mesh filename="assets/abduction_joint.stl"/>
       </geometry>
@@ -732,7 +732,7 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="0 -0 0" rpy="-1.5708 0 0"/>
+      <origin xyz="0 0 0" rpy="-1.5708 0 -0"/>
       <geometry>
         <mesh filename="assets/abduction_joint.stl"/>
       </geometry>
@@ -763,7 +763,7 @@
     </inertial>
     <!-- Part fourbar_joint_3 -->
     <visual>
-      <origin xyz="0.0757772 -0.04375 0.013" rpy="-1.5708 -0 -0"/>
+      <origin xyz="0.0757772 -0.04375 0.013" rpy="-1.5708 0 0"/>
       <geometry>
         <mesh filename="assets/fourbar_joint.stl"/>
       </geometry>
@@ -772,14 +772,14 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="0.0757772 -0.04375 0.013" rpy="-1.5708 -0 -0"/>
+      <origin xyz="0.0757772 -0.04375 0.013" rpy="-1.5708 0 0"/>
       <geometry>
         <mesh filename="assets/fourbar_joint.stl"/>
       </geometry>
     </collision>
     <!-- Part r_shoulder_support -->
     <visual>
-      <origin xyz="0 0 0" rpy="1.5708 0 -0"/>
+      <origin xyz="-0 0 0" rpy="1.5708 -0 0"/>
       <geometry>
         <mesh filename="assets/r_shoulder_support.stl"/>
       </geometry>
@@ -788,14 +788,14 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="1.5708 0 -0"/>
+      <origin xyz="-0 0 0" rpy="1.5708 -0 0"/>
       <geometry>
         <mesh filename="assets/r_shoulder_support.stl"/>
       </geometry>
     </collision>
     <!-- Part robstride_01_simple_10 -->
     <visual>
-      <origin xyz="0.0757772 -0.04375 -0.0274" rpy="0 -0 -0"/>
+      <origin xyz="0.0757772 -0.04375 -0.0274" rpy="0 0 0"/>
       <geometry>
         <mesh filename="assets/robstride_01_simple.stl"/>
       </geometry>
@@ -804,14 +804,14 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="0.0757772 -0.04375 -0.0274" rpy="0 -0 -0"/>
+      <origin xyz="0.0757772 -0.04375 -0.0274" rpy="0 0 0"/>
       <geometry>
         <mesh filename="assets/robstride_01_simple.stl"/>
       </geometry>
     </collision>
     <!-- Part 4mm_id_bearing_3 -->
     <visual>
-      <origin xyz="0.17 -0 0.01" rpy="-3.14159 1e-12 -0"/>
+      <origin xyz="0.17 -0 0.01" rpy="-3.14159 2e-12 0"/>
       <geometry>
         <mesh filename="assets/4mm_id_bearing.stl"/>
       </geometry>
@@ -820,14 +820,14 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="0.17 -0 0.01" rpy="-3.14159 1e-12 -0"/>
+      <origin xyz="0.17 -0 0.01" rpy="-3.14159 2e-12 0"/>
       <geometry>
         <mesh filename="assets/4mm_id_bearing.stl"/>
       </geometry>
     </collision>
     <!-- Part r_shoulder_joint -->
     <visual>
-      <origin xyz="0 0 0" rpy="1.5708 0 -0"/>
+      <origin xyz="-0 0 0" rpy="1.5708 -0 0"/>
       <geometry>
         <mesh filename="assets/r_shoulder_joint.stl"/>
       </geometry>
@@ -836,7 +836,7 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="1.5708 0 -0"/>
+      <origin xyz="-0 0 0" rpy="1.5708 -0 0"/>
       <geometry>
         <mesh filename="assets/r_shoulder_joint.stl"/>
       </geometry>
@@ -845,13 +845,13 @@
   <!-- Link fr_forearm -->
   <link name="fr_forearm">
     <inertial>
-      <origin xyz="-0.0672695 -0.0653452 0.00425504" rpy="0 0 0"/>
+      <origin xyz="-0.0879302 -0.0326108 0.00425504" rpy="0 0 0"/>
       <mass value="0.106908"/>
-      <inertia ixx="0.00032265" ixy="-0.000321844" ixz="2.83027e-07" iyy="0.000346793" iyz="2.71457e-07" izz="0.00065814"/>
+      <inertia ixx="8.8767e-05" ixy="-0.000207931" ixz="3.68551e-07" iyy="0.000580675" iyz="1.34027e-07" izz="0.00065814"/>
     </inertial>
     <!-- Part ball_foot_3 -->
     <visual>
-      <origin xyz="-0 -0 0.0135" rpy="1.5708 -0 0.766711"/>
+      <origin xyz="-0 -0 0.0135" rpy="1.5708 -0 0.350969"/>
       <geometry>
         <mesh filename="assets/ball_foot.stl"/>
       </geometry>
@@ -860,14 +860,14 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="-0 -0 0.0135" rpy="1.5708 -0 0.766711"/>
+      <origin xyz="-0 -0 0.0135" rpy="1.5708 -0 0.350969"/>
       <geometry>
         <mesh filename="assets/ball_foot.stl"/>
       </geometry>
     </collision>
     <!-- Part r_forearm_1 -->
     <visual>
-      <origin xyz="0 0 0.0134" rpy="-1.5708 0 0.766711"/>
+      <origin xyz="0 0 0.0134" rpy="-1.5708 -0 0.350969"/>
       <geometry>
         <mesh filename="assets/r_forearm_1.stl"/>
       </geometry>
@@ -876,14 +876,14 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 0.0134" rpy="-1.5708 0 0.766711"/>
+      <origin xyz="0 0 0.0134" rpy="-1.5708 -0 0.350969"/>
       <geometry>
         <mesh filename="assets/r_forearm_1.stl"/>
       </geometry>
     </collision>
     <!-- Part r_forearm_2 -->
     <visual>
-      <origin xyz="0 0 0.0134" rpy="-1.5708 0 0.766711"/>
+      <origin xyz="0 0 0.0134" rpy="-1.5708 -0 0.350969"/>
       <geometry>
         <mesh filename="assets/r_forearm_2.stl"/>
       </geometry>
@@ -892,7 +892,7 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 0.0134" rpy="-1.5708 0 0.766711"/>
+      <origin xyz="0 0 0.0134" rpy="-1.5708 -0 0.350969"/>
       <geometry>
         <mesh filename="assets/r_forearm_2.stl"/>
       </geometry>
@@ -900,27 +900,27 @@
   </link>
   <!-- Joint from fr_shoulder to fr_forearm -->
   <joint name="FR_j3" type="revolute">
-    <origin xyz="0.17 0 0.0246" rpy="-3.14159 0 -0"/>
+    <origin xyz="0.17 0 0.0246" rpy="3.14159 -0 0"/>
     <parent link="fr_shoulder"/>
     <child link="fr_forearm"/>
     <axis xyz="0 0 1"/>
-    <limit effort="10" velocity="10" lower="-0.417645" upper="1.06588"/>
+    <limit effort="10" velocity="10" lower="-0.00190289" upper="1.48163"/>
   </joint>
   <!-- Joint from fr_hip to fr_shoulder -->
   <joint name="FR_j2" type="revolute">
-    <origin xyz="0.0225 0 0.0605" rpy="-1.5708 -1.17904 -1.5708"/>
+    <origin xyz="0.0225 0 0.0605" rpy="1.5708 -0.174533 1.5708"/>
     <parent link="fr_hip"/>
     <child link="fr_shoulder"/>
     <axis xyz="0 0 1"/>
-    <limit effort="10" velocity="10" lower="-2.66068" upper="1.00451"/>
+    <limit effort="10" velocity="10" lower="-0" upper="3.66519"/>
   </joint>
   <!-- Joint from chassis to fr_hip -->
   <joint name="FR_j1" type="revolute">
-    <origin xyz="-0.143642 -0.016 0.04275" rpy="1.5708 -0.477336 3.14159"/>
+    <origin xyz="-0.143642 -0.016 0.04275" rpy="1.5708 -0.523599 3.14159"/>
     <parent link="chassis"/>
     <child link="fr_hip"/>
     <axis xyz="0 0 1"/>
-    <limit effort="10" velocity="10" lower="-1.00094" upper="0.0462623"/>
+    <limit effort="10" velocity="10" lower="-1.0472" upper="-0"/>
   </joint>
   <!-- Link br_hip -->
   <link name="br_hip">
@@ -987,7 +987,7 @@
     </inertial>
     <!-- Part fourbar_joint_4 -->
     <visual>
-      <origin xyz="0.0757772 -0.04375 0.013" rpy="-1.5708 0 0"/>
+      <origin xyz="0.0757772 -0.04375 0.013" rpy="-1.5708 1e-12 -0"/>
       <geometry>
         <mesh filename="assets/fourbar_joint.stl"/>
       </geometry>
@@ -996,14 +996,14 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="0.0757772 -0.04375 0.013" rpy="-1.5708 0 0"/>
+      <origin xyz="0.0757772 -0.04375 0.013" rpy="-1.5708 1e-12 -0"/>
       <geometry>
         <mesh filename="assets/fourbar_joint.stl"/>
       </geometry>
     </collision>
     <!-- Part r_shoulder_support_2 -->
     <visual>
-      <origin xyz="0 0 -0" rpy="1.5708 -0 -0"/>
+      <origin xyz="0 0 -0" rpy="1.5708 -0 0"/>
       <geometry>
         <mesh filename="assets/r_shoulder_support.stl"/>
       </geometry>
@@ -1012,14 +1012,14 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 -0" rpy="1.5708 -0 -0"/>
+      <origin xyz="0 0 -0" rpy="1.5708 -0 0"/>
       <geometry>
         <mesh filename="assets/r_shoulder_support.stl"/>
       </geometry>
     </collision>
     <!-- Part robstride_01_simple_12 -->
     <visual>
-      <origin xyz="0.0757772 -0.04375 -0.0274" rpy="0 0 -0"/>
+      <origin xyz="0.0757772 -0.04375 -0.0274" rpy="-0 0 -0"/>
       <geometry>
         <mesh filename="assets/robstride_01_simple.stl"/>
       </geometry>
@@ -1028,14 +1028,14 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="0.0757772 -0.04375 -0.0274" rpy="0 0 -0"/>
+      <origin xyz="0.0757772 -0.04375 -0.0274" rpy="-0 0 -0"/>
       <geometry>
         <mesh filename="assets/robstride_01_simple.stl"/>
       </geometry>
     </collision>
     <!-- Part 4mm_id_bearing_4 -->
     <visual>
-      <origin xyz="0.17 -0 0.01" rpy="-3.14159 0 -0"/>
+      <origin xyz="0.17 -0 0.01" rpy="-3.14159 1e-12 -0"/>
       <geometry>
         <mesh filename="assets/4mm_id_bearing.stl"/>
       </geometry>
@@ -1044,14 +1044,14 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="0.17 -0 0.01" rpy="-3.14159 0 -0"/>
+      <origin xyz="0.17 -0 0.01" rpy="-3.14159 1e-12 -0"/>
       <geometry>
         <mesh filename="assets/4mm_id_bearing.stl"/>
       </geometry>
     </collision>
     <!-- Part r_shoulder_joint_2 -->
     <visual>
-      <origin xyz="-0 -0 0" rpy="1.5708 -0 -0"/>
+      <origin xyz="-0 0 0" rpy="1.5708 -0 0"/>
       <geometry>
         <mesh filename="assets/r_shoulder_joint.stl"/>
       </geometry>
@@ -1060,7 +1060,7 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="-0 -0 0" rpy="1.5708 -0 -0"/>
+      <origin xyz="-0 0 0" rpy="1.5708 -0 0"/>
       <geometry>
         <mesh filename="assets/r_shoulder_joint.stl"/>
       </geometry>
@@ -1091,7 +1091,7 @@
     </collision>
     <!-- Part r_forearm_1_2 -->
     <visual>
-      <origin xyz="0 0 0.0134" rpy="-1.5708 0 0"/>
+      <origin xyz="0 -0 0.0134" rpy="-1.5708 -0 0"/>
       <geometry>
         <mesh filename="assets/r_forearm_1.stl"/>
       </geometry>
@@ -1100,14 +1100,14 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 0.0134" rpy="-1.5708 0 0"/>
+      <origin xyz="0 -0 0.0134" rpy="-1.5708 -0 0"/>
       <geometry>
         <mesh filename="assets/r_forearm_1.stl"/>
       </geometry>
     </collision>
     <!-- Part r_forearm_2_2 -->
     <visual>
-      <origin xyz="0 0 0.0134" rpy="-1.5708 0 0"/>
+      <origin xyz="0 -0 0.0134" rpy="-1.5708 -0 0"/>
       <geometry>
         <mesh filename="assets/r_forearm_2.stl"/>
       </geometry>
@@ -1116,7 +1116,7 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 0.0134" rpy="-1.5708 0 0"/>
+      <origin xyz="0 -0 0.0134" rpy="-1.5708 -0 0"/>
       <geometry>
         <mesh filename="assets/r_forearm_2.stl"/>
       </geometry>
@@ -1124,26 +1124,26 @@
   </link>
   <!-- Joint from br_shoulder to br_forearm -->
   <joint name="BR_j3" type="revolute">
-    <origin xyz="0.17 0 0.0246" rpy="3.14159 -0 -1.041"/>
+    <origin xyz="0.17 -0 0.0246" rpy="-3.14159 -0 -1.45117"/>
     <parent link="br_shoulder"/>
     <child link="br_forearm"/>
     <axis xyz="0 0 1"/>
-    <limit effort="10" velocity="10" lower="-0.691936" upper="0.791594"/>
+    <limit effort="10" velocity="10" lower="-1.1021" upper="0.381426"/>
   </joint>
   <!-- Joint from br_hip to br_shoulder -->
   <joint name="BR_j2" type="revolute">
-    <origin xyz="0.0225 0 0.0605" rpy="-1.5708 -0.923702 -1.5708"/>
+    <origin xyz="0.0225 0 0.0605" rpy="-1.5708 -0.19394 -1.5708"/>
     <parent link="br_hip"/>
     <child link="br_shoulder"/>
     <axis xyz="0 0 1"/>
-    <limit effort="10" velocity="10" lower="-2.91602" upper="0.749169"/>
+    <limit effort="10" velocity="10" lower="-2.77312" upper="0.892071"/>
   </joint>
   <!-- Joint from chassis to br_hip -->
   <joint name="BR_j1" type="revolute">
-    <origin xyz="-0.143642 0.359 0.04285" rpy="1.5708 -0.236398 -3.14159"/>
+    <origin xyz="-0.143642 0.359 0.04285" rpy="1.5708 0.133903 -3.14159"/>
     <parent link="chassis"/>
     <child link="br_hip"/>
     <axis xyz="0 0 1"/>
-    <limit effort="10" velocity="10" lower="-0.759997" upper="0.287201"/>
+    <limit effort="10" velocity="10" lower="-0.389696" upper="0.657501"/>
   </joint>
 </robot>

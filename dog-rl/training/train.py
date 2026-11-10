@@ -29,7 +29,7 @@ else:
         tensorboard_log="./logs/"
     )
 
-model.learn(total_timesteps=500000, reset_num_timesteps=False, progress_bar=True)
+model.learn(total_timesteps=2000000, reset_num_timesteps=False, progress_bar=True)
 
 Path("policies").mkdir(exist_ok=True)
 model.save(MODEL_PATH)

@@ -1,0 +1,161 @@
+<mujoco model="robot_urdf">
+  <compiler angle="radian"/>
+
+  <asset>
+    <mesh name="robstride_01_simple" file="assets/robstride_01_simple.stl"/>
+    <mesh name="r_abduction_motor_mount" file="assets/r_abduction_motor_mount.stl"/>
+    <mesh name="l_abduction_motor_mount" file="assets/l_abduction_motor_mount.stl"/>
+    <mesh name="electronics_simple" file="assets/electronics_simple.stl"/>
+    <mesh name="frame" file="assets/frame.stl"/>
+    <mesh name="frame_length" file="assets/frame_length.stl"/>
+    <mesh name="abduction_joint" file="assets/abduction_joint.stl"/>
+    <mesh name="l_shoulder_motor_mount" file="assets/l_shoulder_motor_mount.stl"/>
+    <mesh name="fourbar_joint" file="assets/fourbar_joint.stl"/>
+    <mesh name="4mm_id_bearing" file="assets/4mm_id_bearing.stl"/>
+    <mesh name="l_shoulder_support" file="assets/l_shoulder_support.stl"/>
+    <mesh name="l_shoulder_joint" file="assets/l_shoulder_joint.stl"/>
+    <mesh name="ball_foot" file="assets/ball_foot.stl"/>
+    <mesh name="l_forearm_2" file="assets/l_forearm_2.stl"/>
+    <mesh name="l_forearm_1" file="assets/l_forearm_1.stl"/>
+    <mesh name="r_shoulder_motor_mount" file="assets/r_shoulder_motor_mount.stl"/>
+    <mesh name="r_shoulder_support" file="assets/r_shoulder_support.stl"/>
+    <mesh name="r_shoulder_joint" file="assets/r_shoulder_joint.stl"/>
+    <mesh name="r_forearm_1" file="assets/r_forearm_1.stl"/>
+    <mesh name="r_forearm_2" file="assets/r_forearm_2.stl"/>
+  </asset>
+
+  <actuator>
+    <position name="FL_j1_pos" joint="FL_j1" kp="10" kv="2" ctrlrange="-0.569505 0.477693" forcerange="-6 6"/>
+    <position name="FL_j2_pos" joint="FL_j2" kp="10" kv="2" ctrlrange="-1.71096 1.95423" forcerange="-6 6"/>
+    <position name="FL_j3_pos" joint="FL_j3" kp="10" kv="2" ctrlrange="-0.416464 1.06707" forcerange="-6 6"/>
+ 
+    <position name="FR_j1_pos" joint="FR_j1" kp="10" kv="2" ctrlrange="-1.00094 0.0462623" forcerange="-6 6"/>
+    <position name="FR_j2_pos" joint="FR_j2" kp="10" kv="2" ctrlrange="-2.66068 1.00451" forcerange="-6 6"/>
+    <position name="FR_j3_pos" joint="FR_j3" kp="10" kv="2" ctrlrange="-0.417645 1.06588" forcerange="-6 6"/>
+
+    <position name="BL_j1_pos" joint="BL_j1" kp="10" kv="2" ctrlrange="-0.598573 0.448625" forcerange="-6 6"/>
+    <position name="BL_j2_pos" joint="BL_j2" kp="10" kv="2" ctrlrange="-1.72235 1.94284" forcerange="-6 6"/>
+    <position name="BL_j3_pos" joint="BL_j3" kp="10" kv="2" ctrlrange="-0.338078 1.14545" forcerange="-6 6"/>
+ 
+    <position name="BR_j1_pos" joint="BR_j1" kp="10" kv="2" ctrlrange="-0.759997 0.287201" forcerange="-6 6"/>
+    <position name="BR_j2_pos" joint="BR_j2" kp="10" kv="2" ctrlrange="-2.91602 0.749169" forcerange="-6 6"/>
+    <position name="BR_j3_pos" joint="BR_j3" kp="10" kv="2" ctrlrange="-0.691936 0.791594" forcerange="-6 6"/>
+  </actuator>
+
+  <worldbody>
+    <body name="base_link" pos="0 0 0.15" euler="0 0 0">
+      <freejoint name="base_free"/>
+        <inertial
+          pos="0 0.151216 0.0427831"
+          mass ="2.91738"
+          diaginertia="0.0938015 0.0507887 0.140244"/>
+      <geom pos="0.143642 -0.0564 0.04275" quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.501961 0.501961 0.501961 1" mesh="robstride_01_simple"/>
+      <geom pos="-0.143642 0.365 0.04285" quat="1 0 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="r_abduction_motor_mount"/>
+      <geom pos="0.143642 0.355 0.04275" quat="1.32679e-06 0 0 1" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="l_abduction_motor_mount"/>
+      <geom pos="-0.143642 -0.01 0.04275" quat="1 0 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="r_abduction_motor_mount"/>
+      <geom pos="-0.143642 0.3186 0.04285" quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.501961 0.501961 0.501961 1" mesh="robstride_01_simple"/>
+      <geom pos="-0.143642 -0.0564 0.04275" quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.501961 0.501961 0.501961 1" mesh="robstride_01_simple"/>
+      <geom pos="0 0.15 0.0128" quat="1 0 0 0" type="mesh" rgba="0.498039 0.498039 0.498039 1" mesh="electronics_simple"/>
+      <geom pos="0.143642 0.3186 0.04275" quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.501961 0.501961 0.501961 1" mesh="robstride_01_simple"/>
+      <geom pos="0.143642 -0.02 0.04275" quat="1.32679e-06 0 0 1" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="l_abduction_motor_mount"/>
+      <geom pos="0 0.31 0.0428" quat="1 0 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="frame"/>
+      <geom pos="-0.09365 0.36 0.07915" quat="0.707105 0.707108 0 0" type="mesh" rgba="0.917647 0.917647 0.917647 1" mesh="frame_length"/>
+      <geom pos="0 0.01 0.0428" quat="1 0 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="frame"/>
+      <geom pos="-0.09365 0.36 0.00645" quat="0.707105 0.707108 0 0" type="mesh" rgba="0.917647 0.917647 0.917647 1" mesh="frame_length"/>
+      <geom pos="0.09365 0.36 0.00645" quat="0.707105 0.707108 0 0" type="mesh" rgba="0.917647 0.917647 0.917647 1" mesh="frame_length"/>
+      <geom pos="0.09365 0.36 0.07915" quat="0.707105 0.707108 0 0" type="mesh" rgba="0.917647 0.917647 0.917647 1" mesh="frame_length"/>
+      <body name="fl_hip" pos="0.143642 -0.016 0.04275" quat="-0.0162279 -0.0162297 -0.706922 0.706919">
+        <inertial pos="-0.0024981 9.92301e-05 -0.057576" quat="0.999984 0.000890033 0.0047613 -0.00293586" mass="0.435" diaginertia="0.000385372 0.000271013 0.000218885"/>
+        <joint name="FL_j1" range="-0.569505 0.477693" actuatorfrcrange="-10 10"/>
+        <geom quat="0.707105 0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="abduction_joint"/>
+        <geom pos="0.0179 0 -0.0605" quat="0.499998 -0.5 -0.500002 0.5" type="mesh" rgba="0.501961 0.501961 0.501961 1" mesh="robstride_01_simple"/>
+        <geom pos="-0.0185 0 -0.0605" quat="0.499998 0.5 0.5 -0.500002" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="l_shoulder_motor_mount"/>
+        <body name="fl_shoulder" pos="-0.0225 0 -0.0605" quat="0.698371 0.110803 0.698372 0.110803">
+          <inertial pos="0.0743882 -0.0379941 0.00287314" quat="0.176418 0.687377 0.00836931 0.704499" mass="0.472072" diaginertia="0.000682956 0.000498446 0.000330189"/>
+          <joint name="FL_j2" range="-1.71096 1.95423" actuatorfrcrange="-10 10"/>
+          <geom pos="0.0757772 -0.04375 -0.013" quat="0.707105 0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="fourbar_joint"/>
+          <geom pos="0.0757772 -0.04375 0.0274" quat="1.32679e-06 1 0 0" type="mesh" rgba="0.501961 0.501961 0.501961 1" mesh="robstride_01_simple"/>
+          <geom pos="0.17 0 -0.01" quat="1 0 0 0" type="mesh" rgba="0.917647 0.917647 0.917647 1" mesh="4mm_id_bearing"/>
+          <geom pos="0 0 0" quat="0.707105 0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="l_shoulder_support"/>
+          <geom pos="0 0 0" quat="0.707105 0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="l_shoulder_joint"/>
+          <body name="fl_forearm" pos="0.17 0 -0.006" quat="1.23078e-06 0.927635 -0.373487 -4.9554e-07">
+            <inertial pos="-0.0865461 -0.000376133 0.00419495" quat="-0.00015612 0.707121 -0.000279285 0.707093" mass="0.147256" diaginertia="0.000896206 0.000894215 1.60695e-05"/>
+            <joint name="FL_j3" range="-0.416464 1.06707" actuatorfrcrange="-10 10"/>
+            <geom pos="0 0 0.0133" quat="0.707105 0.707108 0 0" type="mesh" rgba="0.0862745 0.317647 0.690196 1" mesh="ball_foot"/>
+            <geom pos="0 0 -0.005" quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="l_forearm_2"/>
+            <geom pos="0 0 -0.005" quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="l_forearm_1"/>
+          </body>
+        </body>
+      </body>
+      <body name="bl_hip" pos="0.143642 0.359 0.04275" quat="0.0265021 0.0265002 0.706611 -0.706609">
+        <inertial pos="-0.0024981 9.92301e-05 -0.057576" quat="0.999984 0.000890033 0.0047613 -0.00293586" mass="0.435" diaginertia="0.000385372 0.000271013 0.000218885"/>
+        <joint name="BL_j1" range="-0.598573 0.448625" actuatorfrcrange="-10 10"/>
+        <geom quat="0.707105 0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="abduction_joint"/>
+        <geom pos="0.0179 0 -0.0605" quat="0.499998 -0.5 -0.500002 0.5" type="mesh" rgba="0.501961 0.501961 0.501961 1" mesh="robstride_01_simple"/>
+        <geom pos="-0.0185 0 -0.0605" quat="0.499998 0.5 0.5 -0.500002" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="l_shoulder_motor_mount"/>
+        <body name="bl_shoulder" pos="-0.0225 0 -0.0605" quat="0.697729 0.114779 0.697729 0.114779">
+          <inertial pos="0.0743882 -0.0379941 0.00287314" quat="0.176418 0.687377 0.00836931 0.704499" mass="0.472072" diaginertia="0.000682956 0.000498446 0.000330189"/>
+          <joint name="BL_j2" range="-1.72235 1.94284" actuatorfrcrange="-10 10"/>
+          <geom pos="0.0757772 -0.04375 -0.013" quat="0.707105 0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="fourbar_joint"/>
+          <geom pos="0.0757772 -0.04375 0.0274" quat="1.32679e-06 1 0 0" type="mesh" rgba="0.501961 0.501961 0.501961 1" mesh="robstride_01_simple"/>
+          <geom pos="0.17 0 -0.01" quat="1 0 0 0" type="mesh" rgba="0.917647 0.917647 0.917647 1" mesh="4mm_id_bearing"/>
+          <geom pos="0 0 0" quat="0.707105 0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="l_shoulder_support"/>
+          <geom pos="0 0 0" quat="0.707105 0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="l_shoulder_joint"/>
+          <body name="bl_forearm" pos="0.17 0 -0.006" quat="1.24925e-06 0.941557 -0.336852 -4.46934e-07">
+            <inertial pos="-0.0865461 -0.000376133 0.00419495" quat="-0.00015612 0.707121 -0.000279285 0.707093" mass="0.147256" diaginertia="0.000896206 0.000894215 1.60695e-05"/>
+            <joint name="BL_j3" range="-0.338078 1.14545" actuatorfrcrange="-10 10"/>
+            <geom pos="0 0 0.0133" quat="0.707105 0.707108 0 0" type="mesh" rgba="0.0862745 0.317647 0.690196 1" mesh="ball_foot"/>
+            <geom pos="0 0 -0.005" quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="l_forearm_2"/>
+            <geom pos="0 0 -0.005" quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="l_forearm_1"/>
+          </body>
+        </body>
+      </body>
+      <body name="fr_hip" pos="-0.143642 -0.016 0.04275" quat="-0.167166 0.167167 0.687064 0.687062">
+        <inertial pos="0.0024981 -9.92211e-05 0.057576" quat="0.999984 0.000888893 0.00476127 -0.00293582" mass="0.435" diaginertia="0.000385372 0.000271013 0.000218885"/>
+        <joint name="FR_j1" range="-1.00094 0.0462623" actuatorfrcrange="-10 10"/>
+        <geom pos="0.0285 0 0.0605" quat="0.499998 -0.5 -0.5 -0.500002" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="r_shoulder_motor_mount"/>
+        <geom quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="abduction_joint"/>
+        <geom pos="-0.0179 0 0.0605" quat="0.499998 0.5 0.500002 0.5" type="mesh" rgba="0.501961 0.501961 0.501961 1" mesh="robstride_01_simple"/>
+        <body name="fr_shoulder" pos="0.0225 0 0.0605" quat="0.13762 -0.693585 0.137625 -0.693585">
+          <inertial pos="0.0743882 -0.0379941 -0.00287314" quat="-0.00836931 0.704499 -0.176418 0.687377" mass="0.472072" diaginertia="0.000682956 0.000498446 0.000330189"/>
+          <joint name="FR_j2" range="-2.66068 1.00451" actuatorfrcrange="-10 10"/>
+          <geom pos="0.0757772 -0.04375 0.013" quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="fourbar_joint"/>
+          <geom pos="0 0 0" quat="0.707105 0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="r_shoulder_support"/>
+          <geom pos="0.0757772 -0.04375 -0.0274" quat="1 0 0 0" type="mesh" rgba="0.501961 0.501961 0.501961 1" mesh="robstride_01_simple"/>
+          <geom pos="0.17 0 0.01" quat="1.32679e-06 -1 0 0" type="mesh" rgba="0.917647 0.917647 0.917647 1" mesh="4mm_id_bearing"/>
+          <geom pos="0 0 0" quat="0.707105 0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="r_shoulder_joint"/>
+          <body name="fr_forearm" pos="0.17 0 0.0246" quat="1.32679e-06 -1 0 0">
+            <inertial pos="-0.0672695 -0.0653452 0.00425504" quat="-0.264585 0.65607 0.264342 0.655508" mass="0.106908" diaginertia="0.00065814 0.000656792 1.2651e-05"/>
+            <joint name="FR_j3" range="-0.417645 1.06588" actuatorfrcrange="-10 10"/>
+            <geom pos="0 0 0.0135" quat="0.65578 0.655782 0.264483 0.264482" type="mesh" rgba="0.0862745 0.317647 0.690196 1" mesh="ball_foot"/>
+            <geom pos="0 0 0.0134" quat="0.65578 -0.655782 -0.264483 0.264482" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="r_forearm_1"/>
+            <geom pos="0 0 0.0134" quat="0.65578 -0.655782 -0.264483 0.264482" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="r_forearm_2"/>
+          </body>
+        </body>
+      </body>
+      <body name="br_hip" pos="-0.143642 0.359 0.04285" quat="0.0833859 -0.0833838 -0.702174 -0.702172">
+        <inertial pos="0.0024981 -9.92211e-05 0.057576" quat="0.999984 0.000888893 0.00476127 -0.00293582" mass="0.435" diaginertia="0.000385372 0.000271013 0.000218885"/>
+        <joint name="BR_j1" range="-0.759997 0.287201" actuatorfrcrange="-10 10"/>
+        <geom pos="0.0285 0 0.0605" quat="0.499998 -0.5 -0.5 -0.500002" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="r_shoulder_motor_mount"/>
+        <geom quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="abduction_joint"/>
+        <geom pos="-0.0179 0 0.0605" quat="0.499998 0.5 0.500002 0.5" type="mesh" rgba="0.501961 0.501961 0.501961 1" mesh="robstride_01_simple"/>
+        <body name="br_shoulder" pos="0.0225 0 0.0605" quat="0.224809 -0.670418 0.224814 -0.670418">
+          <inertial pos="0.0743882 -0.0379941 -0.00287314" quat="-0.00836931 0.704499 -0.176418 0.687377" mass="0.472072" diaginertia="0.000682956 0.000498446 0.000330189"/>
+          <joint name="BR_j2" range="-2.91602 0.749169" actuatorfrcrange="-10 10"/>
+          <geom pos="0.0757772 -0.04375 0.013" quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="fourbar_joint"/>
+          <geom pos="0 0 0" quat="0.707105 0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="r_shoulder_support"/>
+          <geom pos="0.0757772 -0.04375 -0.0274" quat="1 0 0 0" type="mesh" rgba="0.501961 0.501961 0.501961 1" mesh="robstride_01_simple"/>
+          <geom pos="0.17 0 0.01" quat="1.32679e-06 -1 0 0" type="mesh" rgba="0.917647 0.917647 0.917647 1" mesh="4mm_id_bearing"/>
+          <geom pos="0 0 0" quat="0.707105 0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="r_shoulder_joint"/>
+          <body name="br_forearm" pos="0.17 0 0.0246" quat="1.15109e-06 0.867571 -0.497314 -6.59834e-07">
+            <inertial pos="-0.0937818 -0.000391798 0.00425504" quat="-0.000197307 0.707322 -0.000238372 0.706892" mass="0.106908" diaginertia="0.00065814 0.000656791 1.26512e-05"/>
+            <joint name="BR_j3" range="-0.691936 0.791594" actuatorfrcrange="-10 10"/>
+            <geom pos="0 0 0.0135" quat="0.707105 0.707108 0 0" type="mesh" rgba="0.0862745 0.317647 0.690196 1" mesh="ball_foot"/>
+            <geom pos="0 0 0.0134" quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="r_forearm_1"/>
+            <geom pos="0 0 0.0134" quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="r_forearm_2"/>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+</mujoco>

@@ -3,6 +3,13 @@ import mujoco
 #Convert the Onshape assembly to a URDF
 # onshape-to-robot robot_urdf
 
+#Change all the asset directories from 
+# package://assets/   TO
+# assets/
+
+#Add <actuator> section to the new robot.xml
+#Update the actuator ranges to match that of the joint ranges
+
 #After you create the XML file and add it to the scene.XML, you can visualize it with:
 # onshape-to-robot-mujoco robot_urdf
 #It will launch scene.xml in MuJoCo

@@ -37,7 +37,7 @@ class TrackDogEnv(gym.Env):
         ])
 
         self.action_space = spaces.Box(low=-1.0, high=1.0, shape=(12,), dtype=np.float32)
-        self.observation_space = spaces.Box(low=-np.inf, high=np.inf, shape=(37,), dtype=np.float32)
+        self.observation_space = spaces.Box(low=-np.inf, high=np.inf, shape=(40,), dtype=np.float32)
 
         self.frame_skip = 10
         self.max_steps = 1000
@@ -64,13 +64,17 @@ class TrackDogEnv(gym.Env):
         base_vel = self.data.qvel[0:3]
         local_lin_vel = rotation.T @ base_vel
 
+        self.command = np.array([0.0, self.np_random.uniform(-0.3, -0.1), 0.0], dtype=np.float32)
+
         obs = np.concatenate([
             joint_pos,
             joint_vel,
             base_pos,
             base_quat,
             base_ang_vel,
-            local_lin_vel
+            local_lin_vel,
+            self.command
+
         ])
 
         return obs.astype(np.float32)
@@ -91,16 +95,16 @@ class TrackDogEnv(gym.Env):
         return self._get_obs(), {}
 
     def step(self,  action):
-        target_height = 0.2
+        target_height = 0.3
         forward_weight = 8.0
-        lateral_weight = 0.5
-        yaw_weight = 4.0
-        upright_weight = 1.0
-        height_weight = 1.0
-        energy_weight = 0.01
-        joint_vel_weight = 0.001
-        smooth_weight = 0.001
-        max_action_change = 0.90
+        lateral_weight = 2.0
+        yaw_weight = 2.0
+        upright_weight = 4.0
+        height_weight = 4.0
+        energy_weight = 0.0002
+        joint_vel_weight = 0.0001
+        smooth_weight = 0.005
+        max_action_change = 0.50
 
         
         action = np.clip(action, -1.0, 1.0)
@@ -118,7 +122,7 @@ class TrackDogEnv(gym.Env):
         # target_yaw = self.command[2]
 
         target_vx = 0.0
-        target_vy = 0.5
+        target_vy = 0.25
         target_yaw = 0.0
 
         #Getting raw data from robot-workspace
@@ -140,9 +144,9 @@ class TrackDogEnv(gym.Env):
         vx = local_lin_vel[0]
         vy = local_lin_vel[1]
         yaw = local_ang_vel[2]
-        vx_err = vx - target_vx
-        vy_err = vy - target_vy
-        yaw_err = yaw - target_yaw
+        vx_err = vx - self.command[0]
+        vy_err = vy - self.command[1]
+        yaw_err = yaw - self.command[2]
 
         joint_vel = self.data.qvel[6:18]
         upright = self.data.body("base_link").xmat[8]
