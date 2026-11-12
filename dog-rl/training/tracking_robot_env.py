@@ -64,7 +64,8 @@ class TrackDogEnv(gym.Env):
         base_vel = self.data.qvel[0:3]
         local_lin_vel = rotation.T @ base_vel
 
-        self.command = np.array([0.0, self.np_random.uniform(-0.3, -0.1), 0.0], dtype=np.float32)
+        # self.command = np.array([0.0, self.np_random.uniform(-0.3, -0.1), 0.0], dtype=np.float32)
+        self.command = np.array([0.0, 0.25, 0.0], dtype=np.float32)
 
         obs = np.concatenate([
             joint_pos,
@@ -95,8 +96,8 @@ class TrackDogEnv(gym.Env):
         return self._get_obs(), {}
 
     def step(self,  action):
-        target_height = 0.3
-        forward_weight = 8.0
+        target_height = 0.25
+        forward_weight = 10.0
         lateral_weight = 2.0
         yaw_weight = 2.0
         upright_weight = 4.0
@@ -104,7 +105,10 @@ class TrackDogEnv(gym.Env):
         energy_weight = 0.0002
         joint_vel_weight = 0.0001
         smooth_weight = 0.005
-        max_action_change = 0.50
+        max_action_change = 0.20
+        foot_contact_weight = 1.0
+        nonfoot_contact_weight = 3.0
+        idle_displacement_weight = 0.0
 
         
         action = np.clip(action, -1.0, 1.0)
@@ -117,13 +121,27 @@ class TrackDogEnv(gym.Env):
             mujoco.mj_step(self.model, self.data)
         self.step_count += 1
 
-        # target_vx = self.command[0]
-        # target_vy = self.command[1]
-        # target_yaw = self.command[2]
+        foot_contacts = []
+        nonfoot_contacts = []
+        for i in range(self.data.ncon):
+            contact = self.data.contact[i]
+            geom1 = mujoco.mj_id2name(self.model, mujoco.mjtObj.mjOBJ_GEOM, contact.geom1)
+            geom2 = mujoco.mj_id2name(self.model, mujoco.mjtObj.mjOBJ_GEOM, contact.geom2)
+            
+            # print(f"Geom1: {geom1}, Geom2: {geom2}")
+            if geom1 == "floor":
+                if "foot" in str(geom2):
+                    if len(foot_contacts) == 0:
+                        foot_contacts.append(str(geom2))
+                    else:
+                        if str(geom2) not in foot_contacts:
+                            foot_contacts.append(str(geom2))
+                elif "arm" in str(geom2):
+                    if str(geom2) not in nonfoot_contacts:
+                        nonfoot_contacts.append(str(geom2))
+            # print(f"# of contacts: {len(foot_contacts)}")
+            # print(f"Non foot contacts: {len(nonfoot_contacts)}")
 
-        target_vx = 0.0
-        target_vy = 0.25
-        target_yaw = 0.0
 
         #Getting raw data from robot-workspace
         rotation = self.data.body("base_link").xmat.reshape(3,3)
@@ -139,6 +157,7 @@ class TrackDogEnv(gym.Env):
         )
         local_ang_vel = body_vel[:3]
         local_lin_vel = body_vel[3:6]
+
         
         #Measuring our goal values
         vx = local_lin_vel[0]
@@ -154,6 +173,7 @@ class TrackDogEnv(gym.Env):
         yaw = np.arctan2(rotation[1, 0], rotation[0, 0])
         pitch = np.arctan2(-rotation[2, 0], np.sqrt(rotation[2,1]**2 + rotation[2,2]**2))
         roll = np.arctan2(rotation[2,1], rotation[2,2])
+        current_xy = self.data.body("base_link").xpos[:2]
 
         forward_reward = forward_weight * np.exp(-5.0 * vy_err**2)
         lateral_reward = lateral_weight * np.exp(-5.0 * vx_err**2)
@@ -163,8 +183,10 @@ class TrackDogEnv(gym.Env):
         energy_reward = -1 * energy_weight * np.sum(filtered_action**2)
         joint_vel_reward = -1 * joint_vel_weight * np.sum(joint_vel**2)
         smooth_reward = -smooth_weight * np.sum((filtered_action - self.prev_action)**2)
-        
-        reward = (forward_reward + lateral_reward + yaw_reward + upright_reward + height_reward + energy_reward + joint_vel_reward + smooth_reward)
+        contact_reward = foot_contact_weight * len(foot_contacts) - nonfoot_contact_weight * len(nonfoot_contacts)
+        idle_reward = -1 * idle_displacement_weight * np.sum((self.initial_xy - current_xy)**2)
+
+        reward = (forward_reward + lateral_reward + yaw_reward + upright_reward + height_reward + energy_reward + joint_vel_reward + smooth_reward + contact_reward + idle_reward)
 
         terminated = bool(
             base_height < 0.05 or upright < 0.15

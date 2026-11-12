@@ -7,7 +7,7 @@ from tracking_robot_env import TrackDogEnv
 render_interval = 2
 
 env = TrackDogEnv()
-policy = PPO.load("policies/robot_dog_walk14")
+policy = PPO.load("policies/walk_forward0")
 
 
 obs, info = env.reset()

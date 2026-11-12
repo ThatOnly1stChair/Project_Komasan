@@ -81,9 +81,9 @@
           <body name="fl_forearm" pos="0.17 0 -0.006" quat="8.07699e-07 -0.60876 0.793355 -1.05262e-06">
             <inertial pos="-0.0865461 -0.000376133 0.00419495" quat="-0.00015612 0.707121 -0.000279285 0.707093" mass="0.147256" diaginertia="0.000896206 0.000894215 1.60695e-05"/>
             <joint name="FL_j3" range="-1.48353 0" actuatorfrcrange="-10 10"/>
-            <geom pos="0 0 0.0133" quat="0.707105 0.707108 0 0" type="mesh" rgba="0.0862745 0.317647 0.690196 1" mesh="ball_foot"/>
-            <geom pos="0 0 -0.005" quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="l_forearm_2"/>
-            <geom pos="0 0 -0.005" quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="l_forearm_1"/>
+            <geom name="fl_foot" pos="0 0 0.0133" quat="0.707105 0.707108 0 0" type="mesh" rgba="0.0862745 0.317647 0.690196 1" mesh="ball_foot"/>
+            <geom name="fl_forearm_2" pos="0 0 -0.005" quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="l_forearm_2"/>
+            <geom name="fl_forearm_1" pos="0 0 -0.005" quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="l_forearm_1"/>
           </body>
         </body>
       </body>
@@ -104,9 +104,9 @@
           <body name="bl_forearm" pos="0.17 0 -0.006" quat="1.24925e-06 0.941557 -0.336852 -4.46934e-07">
             <inertial pos="-0.0865461 -0.000376133 0.00419495" quat="-0.00015612 0.707121 -0.000279285 0.707093" mass="0.147256" diaginertia="0.000896206 0.000894215 1.60695e-05"/>
             <joint name="BL_j3" range="-0.338078 1.14545" actuatorfrcrange="-10 10"/>
-            <geom pos="0 0 0.0133" quat="0.707105 0.707108 0 0" type="mesh" rgba="0.0862745 0.317647 0.690196 1" mesh="ball_foot"/>
-            <geom pos="0 0 -0.005" quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="l_forearm_2"/>
-            <geom pos="0 0 -0.005" quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="l_forearm_1"/>
+            <geom name="bl_foot" pos="0 0 0.0133" quat="0.707105 0.707108 0 0" type="mesh" rgba="0.0862745 0.317647 0.690196 1" mesh="ball_foot"/>
+            <geom name="bl_forearm_2" pos="0 0 -0.005" quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="l_forearm_2"/>
+            <geom name="bl_forearm_1" pos="0 0 -0.005" quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="l_forearm_1"/>
           </body>
         </body>
       </body>
@@ -127,9 +127,9 @@
           <body name="fr_forearm" pos="0.17 0 0.0246" quat="1.32679e-06 1 0 0">
             <inertial pos="-0.0879302 -0.0326108 0.00425504" quat="-0.123607 0.6965 0.123253 0.696001" mass="0.106908" diaginertia="0.00065814 0.00065679 1.26514e-05"/>
             <joint name="FR_j3" range="-0.00190289 1.48163" actuatorfrcrange="-10 10"/>
-            <geom pos="0 0 0.0135" quat="0.696246 0.696248 0.123451 0.12345" type="mesh" rgba="0.0862745 0.317647 0.690196 1" mesh="ball_foot"/>
-            <geom pos="0 0 0.0134" quat="0.696246 -0.696248 -0.123451 0.12345" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="r_forearm_1"/>
-            <geom pos="0 0 0.0134" quat="0.696246 -0.696248 -0.123451 0.12345" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="r_forearm_2"/>
+            <geom name="fr_foot" pos="0 0 0.0135" quat="0.696246 0.696248 0.123451 0.12345" type="mesh" rgba="0.0862745 0.317647 0.690196 1" mesh="ball_foot"/>
+            <geom name="fr_forearm_1" pos="0 0 0.0134" quat="0.696246 -0.696248 -0.123451 0.12345" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="r_forearm_1"/>
+            <geom name="fr_forearm_2" pos="0 0 0.0134" quat="0.696246 -0.696248 -0.123451 0.12345" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="r_forearm_2"/>
           </body>
         </body>
       </body>
@@ -150,9 +150,9 @@
           <body name="br_forearm" pos="0.17 0 0.0246" quat="9.9259e-07 -0.748111 0.663573 -8.80426e-07">
             <inertial pos="-0.0937818 -0.000391798 0.00425504" quat="-0.000197307 0.707322 -0.000238372 0.706892" mass="0.106908" diaginertia="0.00065814 0.000656791 1.26512e-05"/>
             <joint name="BR_j3" range="-1.1021 0.381426" actuatorfrcrange="-10 10"/>
-            <geom pos="0 0 0.0135" quat="0.707105 0.707108 0 0" type="mesh" rgba="0.0862745 0.317647 0.690196 1" mesh="ball_foot"/>
-            <geom pos="0 0 0.0134" quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="r_forearm_1"/>
-            <geom pos="0 0 0.0134" quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="r_forearm_2"/>
+            <geom name="br_foot" pos="0 0 0.0135" quat="0.707105 0.707108 0 0" type="mesh" rgba="0.0862745 0.317647 0.690196 1" mesh="ball_foot"/>
+            <geom name="br_forearm_1" pos="0 0 0.0134" quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="r_forearm_1"/>
+            <geom name="br_forearm_2" pos="0 0 0.0134" quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.364706 0.72549 0.87451 1" mesh="r_forearm_2"/>
           </body>
         </body>
       </body>
