@@ -8,10 +8,10 @@ import os
 from robot_env import RobotDogEnv
 from tracking_robot_env import TrackDogEnv
 
-MODEL_PATH = "policies/walk_forward0.zip"
+MODEL_PATH = "policies/walk_fwd0.zip"
 #robot_dog_walk13 set with goal of range of -0.5 to -0.15
 
-n_envs = 8
+n_envs = 4
 
 def make_env():
     return Monitor(TrackDogEnv())
@@ -43,7 +43,7 @@ def main():
             tensorboard_log="./logs/"
         ) 
 
-    model.learn(total_timesteps=3000000, reset_num_timesteps=False, progress_bar=True)
+    model.learn(total_timesteps=5000000, reset_num_timesteps=False, progress_bar=True)
 
     Path("policies").mkdir(exist_ok=True)
     model.save(MODEL_PATH)
