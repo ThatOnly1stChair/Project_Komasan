@@ -15,8 +15,12 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
     while viewer.is_running():
         start = time.time()
 
-        for i in range(model.nu):
-            data.ctrl[i] = 0.5
+        data.ctrl = [
+            0.00, 0.33, 0.883,
+            0.00, 0.33, 0.883,
+            0.00, 0.33, 0.883,
+            0.00, 0.33, 0.883
+        ]
         mujoco.mj_step(model, data)
 
         viewer.sync()

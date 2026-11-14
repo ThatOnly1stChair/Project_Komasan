@@ -37,11 +37,18 @@ class TrackDogEnv(gym.Env):
         ])
 
         self.action_space = spaces.Box(low=-1.0, high=1.0, shape=(12,), dtype=np.float32)
-        self.observation_space = spaces.Box(low=-np.inf, high=np.inf, shape=(40,), dtype=np.float32)
+        self.observation_space = spaces.Box(low=-np.inf, high=np.inf, shape=(44,), dtype=np.float32)
 
         self.frame_skip = 10
         self.max_steps = 1000
         self.step_count = 0
+
+        self.nominal_pose = np.array([
+            0.00, 0.33, 0.883,
+            0.00, 0.33, 0.883,
+            0.00, 0.33, 0.883,
+            0.00, 0.33, 0.883
+        ], dtype=np.float64)
 
         self.ctrl_low = self.model.actuator_ctrlrange[:, 0]
         self.ctrl_high = self.model.actuator_ctrlrange[:, 1]
@@ -64,7 +71,15 @@ class TrackDogEnv(gym.Env):
         base_vel = self.data.qvel[0:3]
         local_lin_vel = rotation.T @ base_vel
 
-        self.command = np.array([0.0, self.np_random.uniform(-0.3, -0.1), 0.0], dtype=np.float32)
+        current_xy = self.data.body("base_link").xpos[:2]
+        position_err = (current_xy - self.initial_xy)
+
+        current_yaw = np.arctan2(rotation[1,0], rotation[0,0])
+        heading_err = np.array([np.sin(current_yaw - self.initial_yaw), np.cos(current_yaw - self.initial_yaw)])
+        # print(f"Position err: {position_err}, heading err: {heading_err}")
+
+        # self.command = np.array([0.0, self.np_random.uniform(-0.3, -0.1), 0.0], dtype=np.float32)
+        self.command = np.array([0.0, -0.25, 0.0], dtype=np.float32)
 
         obs = np.concatenate([
             joint_pos,
@@ -73,8 +88,9 @@ class TrackDogEnv(gym.Env):
             base_quat,
             base_ang_vel,
             local_lin_vel,
-            self.command
-
+            self.command,
+            position_err,
+            heading_err
         ])
 
         return obs.astype(np.float32)
@@ -85,48 +101,71 @@ class TrackDogEnv(gym.Env):
         mujoco.mj_resetData(self.model, self.data)
         self.step_count = 0
 
-        self.data.ctrl[:] = (
-            self.ctrl_low + self.ctrl_high) /2
+        self.data.ctrl[:] = self.nominal_pose
 
         mujoco.mj_forward(self.model, self.data)
         self.initial_xy = (self.data.body("base_link").xpos[:2].copy())
-        self.prev_action = np.zeros(12, dtype=np.float32)
+        rotation = self.data.body("base_link").xmat.reshape(3,3)
+        self.initial_yaw = np.arctan2(rotation[1,0], rotation[0,0])
+        self.prev_action = self.nominal_pose.copy()
 
         return self._get_obs(), {}
 
     def step(self,  action):
-        target_height = 0.3
-        forward_weight = 8.0
-        lateral_weight = 2.0
+        target_height = 0.25
+        forward_weight = 10.0
+        lateral_weight = 4.0
         yaw_weight = 2.0
         upright_weight = 4.0
         height_weight = 4.0
-        energy_weight = 0.0002
-        joint_vel_weight = 0.0001
+        energy_weight = 0.0001
+        joint_vel_weight = 0.0002
         smooth_weight = 0.005
-        max_action_change = 0.50
+        action_scale = 0.90
+        max_action_change = 0.75
+        foot_contact_weight = 0.00
+        nonfoot_contact_weight = 2.0
+        idle_displacement_weight = 0.0
+        heading_weight = 6.0
 
         
         action = np.clip(action, -1.0, 1.0)
-        filtered_action = self.prev_action + np.clip(action - self.prev_action, -max_action_change, max_action_change)
 
-        target = self.ctrl_low + ((filtered_action + 1.0) / 2.0) * (self.ctrl_high - self.ctrl_low)
+        target = self.nominal_pose + action_scale * action
+        target = np.clip(target, self.ctrl_low, self.ctrl_high)
+        filtered_action = self.prev_action + np.clip(target - self.prev_action, -max_action_change, max_action_change)
 
-        self.data.ctrl[:] = target
+        self.data.ctrl[:] = filtered_action
         for _ in range(self.frame_skip):
             mujoco.mj_step(self.model, self.data)
         self.step_count += 1
 
-        # target_vx = self.command[0]
-        # target_vy = self.command[1]
-        # target_yaw = self.command[2]
+        foot_contacts = []
+        nonfoot_contacts = []
+        for i in range(self.data.ncon):
+            contact = self.data.contact[i]
+            geom1 = mujoco.mj_id2name(self.model, mujoco.mjtObj.mjOBJ_GEOM, contact.geom1)
+            geom2 = mujoco.mj_id2name(self.model, mujoco.mjtObj.mjOBJ_GEOM, contact.geom2)
+            
+            # print(f"Geom1: {geom1}, Geom2: {geom2}")
+            if geom1 == "floor":
+                if "foot" in str(geom2):
+                    if len(foot_contacts) == 0:
+                        foot_contacts.append(str(geom2))
+                    else:
+                        if str(geom2) not in foot_contacts:
+                            foot_contacts.append(str(geom2))
+                elif "arm" in str(geom2):
+                    if str(geom2) not in nonfoot_contacts:
+                        nonfoot_contacts.append(str(geom2))
+            # print(f"# of contacts: {len(foot_contacts)}")
+            # print(f"Non foot contacts: {len(nonfoot_contacts)}")
 
-        target_vx = 0.0
-        target_vy = 0.25
-        target_yaw = 0.0
 
         #Getting raw data from robot-workspace
         rotation = self.data.body("base_link").xmat.reshape(3,3)
+        current_yaw = np.arctan2(rotation[1,0], rotation[0,0])
+        heading_err = np.arctan2(np.sin(current_yaw - self.initial_yaw), np.cos(current_yaw - self.initial_yaw))
 
         body_vel = np.zeros(6)
         mujoco.mj_objectVelocity(
@@ -139,7 +178,7 @@ class TrackDogEnv(gym.Env):
         )
         local_ang_vel = body_vel[:3]
         local_lin_vel = body_vel[3:6]
-        
+
         #Measuring our goal values
         vx = local_lin_vel[0]
         vy = local_lin_vel[1]
@@ -154,20 +193,26 @@ class TrackDogEnv(gym.Env):
         yaw = np.arctan2(rotation[1, 0], rotation[0, 0])
         pitch = np.arctan2(-rotation[2, 0], np.sqrt(rotation[2,1]**2 + rotation[2,2]**2))
         roll = np.arctan2(rotation[2,1], rotation[2,2])
+        current_xy = self.data.body("base_link").xpos[:2]
 
         forward_reward = forward_weight * np.exp(-5.0 * vy_err**2)
         lateral_reward = lateral_weight * np.exp(-5.0 * vx_err**2)
         yaw_reward = yaw_weight * np.exp( -5.0 * yaw_err**2)
-        upright_reward = upright_weight * np.exp(-5.0 * (pitch**2 + roll**2))
+        upright_reward = upright_weight * np.exp(-20.0 * (pitch**2 + roll**2))
         height_reward = height_weight * np.exp( -5.0 * (base_height - target_height) ** 2)
         energy_reward = -1 * energy_weight * np.sum(filtered_action**2)
         joint_vel_reward = -1 * joint_vel_weight * np.sum(joint_vel**2)
         smooth_reward = -smooth_weight * np.sum((filtered_action - self.prev_action)**2)
-        
-        reward = (forward_reward + lateral_reward + yaw_reward + upright_reward + height_reward + energy_reward + joint_vel_reward + smooth_reward)
+        contact_reward = foot_contact_weight * len(foot_contacts) - nonfoot_contact_weight * len(nonfoot_contacts)
+        idle_reward = idle_displacement_weight * np.exp(-10.0 * np.sum((self.initial_xy - current_xy)**2))
+        heading_reward = heading_weight * np.exp(-5.0 * heading_err **2)
+
+        reward = (forward_reward + lateral_reward + yaw_reward + upright_reward + height_reward 
+            + energy_reward + joint_vel_reward + smooth_reward + contact_reward + idle_reward
+            + heading_reward)
 
         terminated = bool(
-            base_height < 0.05 or upright < 0.15
+            base_height < 0.05 or upright < 0.80
         )
 
         truncated = self.step_count >= self.max_steps

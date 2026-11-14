@@ -6,7 +6,8 @@
     <worldbody>
         <geom name="floor"
             type="plane"
-            size="10 10 0.1"/>
+            size="10 10 0.1"
+            friction="0.8 0.005 0.0001"/>
     </worldbody>
 
 </mujoco>
